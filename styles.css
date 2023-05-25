@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    font-family: 'Lexend', sans-serif;
+}
+
+header {
+    box-shadow: 0px 2px 5px 0px rgba(179, 178, 178, 0.75);
+    background-color: #FFFBFB;
+}
+
+body {
+    background-color: rgba(236, 236, 236, 0.932);
+}
+
+.logo-container {
+    width: 60%;
+    margin: auto;
+    padding: 25px;
+}
+
+.main-container {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.add-book {
+    margin: 50px auto;
+    padding: 10px 30px;
+    width: fit-content;
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.add-book:hover {
+    background-color: rgb(211, 211, 211);
+    transition: 0.5s;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.card {
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 5px 0px rgba(179, 178, 178, 0.75)
+}
+
+.card button,
+.card p {
+    margin: 0.5rem;
+    font-size: 1rem;
+}
+
+.card button {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    transition: 0.3s;
+    background-color: rgb(211, 211, 211);
+}
+
+.read-btn {
+    background-color: rgb(142, 238, 142);
+}
+
+.read-btn:hover {
+    background-color: rgb(110, 206, 110) ;
+}
+
+.not-read-btn {
+    background-color: rgb(238, 142, 142)
+}
+
+.not-read-btn:hover {
+    background-color: rgb(206, 110, 110)
+}
+
