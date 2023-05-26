@@ -15,6 +15,7 @@ const submitBtn = document.querySelector("#submitBtn")
 const bookForm = document.querySelector("#book-form")
 
 // Event listeners // 
+// Remove book and read status event listener is added whithin displayBooks() //
 
 addBookBtn.addEventListener("click", function() {
     displayBookForm()
@@ -28,7 +29,7 @@ bookForm.addEventListener("submit", function(e) {
     hideBookForm()
     e.preventDefault()
     createAndPushBookToArray()
-    displayBooks()
+    createAndDisplayBooks()
 })
 
 // Function to display add book form //
@@ -52,21 +53,26 @@ function createBookObject(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
-    this.read = read
+    this.read = read;
 }
 
-// take data from form and pus to array //
+// Function to take data from form and push to array //
 
 function createAndPushBookToArray() {
 
-    let book = new createBookObject(titleInput.value, authorInput.value, pagesInput.value, readInput.value)
+    let book = new createBookObject(titleInput.value, authorInput.value, pagesInput.value, readInput.checked)
 
     myLibrary.push(book)
+
+    titleInput.value = ""
+    authorInput.value = ""
+    pagesInput.value = ""
+    readInput.checked = false
 }
 
-// Function to loop through array and display Books on page //
+// Function to loop through array, create book cards and then display them on the page //
 
-function displayBooks() {
+function createAndDisplayBooks() {
 
     grid.innerHTML = ""
 
@@ -74,6 +80,7 @@ function displayBooks() {
 
         const bookCard = document.createElement("div")
         bookCard.classList.add("card")
+        bookCard.setAttribute("data-id", [i])
 
         const bookTitle = document.createElement("p")
         bookTitle.textContent = '"' + myLibrary[i].title + '"'
@@ -85,12 +92,25 @@ function displayBooks() {
         bookPages.textContent = myLibrary[i].pages + " pages"
 
         const readButton = document.createElement("button")
-        readButton.classList.add("read-btn")
-        readButton.textContent = "Read"
+
+        if (myLibrary[i].read) {
+            readButton.classList.add("read-btn")
+            readButton.textContent = "Read"
+        }
+
+        else {
+            readButton.classList.add("not-read-btn")
+            readButton.textContent = "Not read"
+        }
 
         const removeButton = document.createElement("button")
         removeButton.classList.add("remove-btn")
         removeButton.textContent = "Remove"
+
+        removeButton.addEventListener("click", function(e) {
+            myLibrary.splice(bookCard.dataset.id, 1)
+            e.target.parentNode.remove()
+        })
 
         bookCard.appendChild(bookTitle)
         bookCard.appendChild(bookAuthor)
@@ -101,3 +121,6 @@ function displayBooks() {
         grid.append(bookCard)
     }
 }
+
+
+
