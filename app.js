@@ -30,6 +30,7 @@ bookForm.addEventListener("submit", function(e) {
     e.preventDefault()
     createAndPushBookToArray()
     createAndDisplayBooks()
+    AddremoveBtnEventListener()
 })
 
 // Function to display add book form //
@@ -70,6 +71,21 @@ function createAndPushBookToArray() {
     readInput.checked = false
 }
 
+// Add remove button event listeners // 
+
+function AddremoveBtnEventListener() {
+    let remover = document.querySelectorAll(".remove-btn")
+
+    for (var i = 0; i < myLibrary.length; i++) {
+
+        remover[i].addEventListener("click", function(e) {
+
+            myLibrary.splice(e.target.dataset.id, 1)
+            e.target.parentNode.remove()
+        })
+    }
+}
+
 // Function to loop through array, create book cards and then display them on the page //
 
 function createAndDisplayBooks() {
@@ -107,11 +123,6 @@ function createAndDisplayBooks() {
         removeButton.classList.add("remove-btn")
         removeButton.textContent = "Remove"
 
-        removeButton.addEventListener("click", function(e) {
-            myLibrary.splice(bookCard.dataset.id, 1)
-            e.target.parentNode.remove()
-        })
-
         bookCard.appendChild(bookTitle)
         bookCard.appendChild(bookAuthor)
         bookCard.appendChild(bookPages)
@@ -121,6 +132,8 @@ function createAndDisplayBooks() {
         grid.append(bookCard)
     }
 }
+
+
 
 
 
