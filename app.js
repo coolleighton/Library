@@ -1,32 +1,68 @@
-let myLibrary = [
-
-    {
-        title: "leightons adventure",
-        author: "garry donavan",
-        pages: 300,
-        isRead: true,
-    },
-
-    {
-        title: "barrys adventure",
-        author: "garry donavan",
-        pages: 300,
-        isRead: true,
-    },
-
-    {
-        title: "lee's adventure",
-        author: "garry donavan",
-        pages: 300,
-        isRead: false,
-    }
-]
+let myLibrary = []
 
 // Selectors //
 
 const grid = document.querySelector("#book-grid")
 const addBookBtn = document.querySelector("#add-book")
+const bookFormContainer = document.querySelector("#book-form-container")
+const greyTint = document.querySelector("#grey-tint")
+
+const titleInput = document.querySelector("#title-input")
+const authorInput = document.querySelector("#author-input")
+const pagesInput = document.querySelector("#pages-input")
+const readInput = document.querySelector("#read-input")
+const submitBtn = document.querySelector("#submitBtn")
 const bookForm = document.querySelector("#book-form")
+
+// Event listeners // 
+
+addBookBtn.addEventListener("click", function() {
+    displayBookForm()
+})
+
+greyTint.addEventListener("click", function() {
+    hideBookForm()
+})
+
+bookForm.addEventListener("submit", function(e) {
+    hideBookForm()
+    e.preventDefault()
+    createAndPushBookToArray()
+    displayBooks()
+})
+
+// Function to display add book form //
+
+function displayBookForm() {
+    bookFormContainer.style.display = "block"
+    greyTint.style.display = "block"
+}
+
+// Function to hide add book form //
+
+function hideBookForm() {
+    bookFormContainer.style.display = "none"
+    greyTint.style.display = "none"
+}
+
+// Function to construct book object //
+ 
+function createBookObject(title, author, pages, read) {
+
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+}
+
+// take data from form and pus to array //
+
+function createAndPushBookToArray() {
+
+    let book = new createBookObject(titleInput.value, authorInput.value, pagesInput.value, readInput.value)
+
+    myLibrary.push(book)
+}
 
 // Function to loop through array and display Books on page //
 
@@ -40,10 +76,10 @@ function displayBooks() {
         bookCard.classList.add("card")
 
         const bookTitle = document.createElement("p")
-        bookTitle.textContent = myLibrary[i].title
+        bookTitle.textContent = '"' + myLibrary[i].title + '"'
 
         const bookAuthor = document.createElement("p")
-        bookAuthor.textContent = myLibrary[i].author
+        bookAuthor.textContent = "by " + myLibrary[i].author
 
         const bookPages = document.createElement("p")
         bookPages.textContent = myLibrary[i].pages + " pages"
@@ -65,16 +101,3 @@ function displayBooks() {
         grid.append(bookCard)
     }
 }
-
-// function to display and hide and add book form //
-
-
-
-displayBooks()
-
-addBookBtn.addEventListener("click", function() {
-    bookForm.style.display = "flex"
-    bookForm.style.flexDirection = "column"
-})
-
-

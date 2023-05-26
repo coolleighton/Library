@@ -27,21 +27,23 @@
 
     </section>
 
-    <section id="book-form" class="book-form hidden">
+    <section id="book-form-container" class="book-form">
 
         <p>Add new book</p>
-        <form>
-            <input type="text" placeholder="Title">
-            <input type="text" placeholder="Author">
-            <input type="number" placeholder="Pages">
+        <form id="book-form" action="">
+            <input id="title-input" type="text" placeholder="Title" required />
+            <input id="author-input"type="text" placeholder="Author" required />
+            <input id="pages-input" type="number" placeholder="Pages" required />
             <div>
                 <label>Have you read it?</label>
-                <input id="is-read" type="checkbox">
+                <input id="read-input" id="is-read" type="checkbox" />
             </div>
-            <input class="submit" type="submit">
+            <input id="submitBtn" class="submit" type="submit" value="Submit">
         </form>
 
     </section>
+
+    <div id="grey-tint" class="grey-tint"></div>
 
     <script src="app.js"></script>
 </body>
