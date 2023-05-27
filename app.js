@@ -15,7 +15,7 @@ const submitBtn = document.querySelector("#submitBtn")
 const bookForm = document.querySelector("#book-form")
 
 // Event listeners // 
-// Remove book and read status event listener is added whithin displayBooks() //
+
 
 addBookBtn.addEventListener("click", function() {
     displayBookForm()
