@@ -73,7 +73,7 @@ function createAndPushBookToArray() {
 
 // Add remove button event listeners // 
 
-function AddremoveBtnEventListener() {
+function AddRemoveBtnEventListener() {
     let remover = document.querySelectorAll(".remove-btn")
 
     for (var i = 0; i < myLibrary.length; i++) {

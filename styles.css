@@ -3,24 +3,28 @@
     font-family: 'Lexend', sans-serif;
 }
 
+html {
+    width: 100vw;
+}
+
 header {
     box-shadow: 0px 2px 5px 0px rgba(179, 178, 178, 0.75);
     background-color: #FFFBFB;
+}
+
+.logo-container h1 {
+    width: 1200px;
+    margin: auto;
+    padding: 25px;
 }
 
 body {
     background-color: rgba(236, 236, 236, 0.932);
 }
 
-.logo-container {
-    width: 60%;
-    margin: auto;
-    padding: 25px;
-}
-
 .main-container {
     position: relative;
-    width: 60%;
+    width: 1200px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -48,6 +52,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    margin-bottom: 2rem;
 }
 
 .card {
@@ -145,4 +150,37 @@ body {
     cursor: pointer;
 }
 
+@media (max-width: 1300px) {
 
+    .logo-container h1 {
+        width: 95%;
+    }
+
+    .main-container {
+        width: 95%;
+    }
+
+    .add-book {
+        margin: 25px auto;
+    }
+}
+
+@media (max-width: 1000px) {
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .book-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .logo-container h1 {
+        width: 90%;
+    }
+
+    .main-container {
+        width: 90%;
+    }
+}
