@@ -7,6 +7,10 @@ const grid = document.querySelector("#book-grid")
 const addBookBtn = document.querySelector("#add-book")
 const bookFormContainer = document.querySelector("#book-form-container")
 const greyTint = document.querySelector("#grey-tint")
+const totalBooks = document.querySelector("#total-books")
+const totalBooksRead = document.querySelector("#total-books-read")
+const totalPages = document.querySelector("#total-pages")
+const totalPagesRead = document.querySelector("#total-pages-read")
 
 const titleInput = document.querySelector("#title-input")
 const authorInput = document.querySelector("#author-input")
@@ -15,8 +19,8 @@ const readInput = document.querySelector("#read-input")
 const submitBtn = document.querySelector("#submitBtn")
 const bookForm = document.querySelector("#book-form")
 
-// Event listeners // 
 
+// Event listeners // 
 
 addBookBtn.addEventListener("click", function() {
     displayBookForm()
@@ -30,6 +34,7 @@ bookForm.addEventListener("submit", function(e) {
     hideBookForm()
     e.preventDefault()
     createAndDisplayBooks()
+    updateStats()
     clearForm()
 })
 
@@ -41,12 +46,14 @@ function displayBookForm() {
     greyTint.style.display = "block"
 }
 
+
 // Function to hide add book form //
 
 function hideBookForm() {
     bookFormContainer.style.display = "none"
     greyTint.style.display = "none"
 }
+
 
 // Function to clear form //
 
@@ -60,28 +67,31 @@ function clearForm() {
 
 // Function to construct book object //
  
-function createBookObject(title, author, pages, read,) {
+function createBookObject(title, author, pages, read, dataId) {
 
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read;
+    this.dataId = dataId
 }
 
 // Function to loop through array, create book cards and then display them on the page //
 
-function createAndDisplayBooks(i) {
+function createAndDisplayBooks() {
 
-    let book = new createBookObject(titleInput.value, authorInput.value, pagesInput.value, readInput.checked)
+    let book = new createBookObject(titleInput.value, authorInput.value, pagesInput.value, readInput.checked, Date.now())
 
     myLibrary.push(book)
 
     const bookCard = document.createElement("div")
-        bookCard.classList.add("card")
-        bookCard.setAttribute("data-id", [i])
+    bookCard.classList.add("card")
 
-    const bookTitle = document.createElement("p")
-        bookTitle.textContent = '"' + book.title + '"'
+    bookCard.setAttribute("data-id", Date.now())
+    
+    
+    const bookTitle = document.createElement("h3")
+    bookTitle.textContent = '"' + book.title + '"'
 
     const bookAuthor = document.createElement("p")
     bookAuthor.textContent = "by " + book.author
@@ -110,15 +120,20 @@ function createAndDisplayBooks(i) {
             
         if (book.read) {
             readButton.classList.add("read-btn")
+            readButton.classList.remove("not-read-btn")
             readButton.textContent = "Read"
             }
     
         else {
             readButton.classList.add("not-read-btn")
+            readButton.classList.remove("read-btn")
             readButton.textContent = "Not read"
             }
+
+        updateStats()
         })
 
+       
     // Remove book button //
 
     const removeButton = document.createElement("button")
@@ -126,10 +141,15 @@ function createAndDisplayBooks(i) {
     removeButton.textContent = "Remove"
 
     removeButton.addEventListener("click", function(e) {
+        
+        let index = myLibrary.findIndex(x => x.dataId === parseInt(e.target.parentNode.dataset.id)
+        )
+        
+        myLibrary.splice(index, 1)
 
-        myLibrary.splice(e.target.dataset.id, 1)
         e.target.parentNode.remove()
-        console.log(myLibrary)
+
+        updateStats()
     })
 
     bookCard.appendChild(bookTitle)
@@ -141,3 +161,47 @@ function createAndDisplayBooks(i) {
     grid.append(bookCard)
 
     }
+
+
+// function to update book statistics // 
+
+function updateStats() {
+
+    console.log(myLibrary)
+
+    totalBooks.textContent = myLibrary.length 
+
+
+    function getBooksRead() {
+        let totalBooksReadArray = myLibrary.filter(readBook => readBook.read === true)
+        return totalBooksReadArray
+    }
+    
+    totalBooksRead.textContent = getBooksRead().length
+
+    function getPages() {
+
+        let total = 0;
+        myLibrary.forEach(element => {
+
+            total += parseInt(element.pages)
+        });
+
+        return total
+    } 
+
+    function getPagesRead() {
+
+        let total = 0;
+        getBooksRead().forEach(element => {
+
+            total += parseInt(element.pages)
+        });
+
+        return total
+    } 
+
+    totalPages.textContent = getPages()
+
+    totalPagesRead.textContent = getPagesRead()
+}

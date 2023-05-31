@@ -101,6 +101,13 @@ body {
     background-color: rgb(206, 110, 110)
 }
 
+.stats {
+    justify-content: space-between;
+    grid-column: 3;
+    grid-row: 1;
+    min-height: 250px;
+}
+
 .book-form {
     display: none;
     position: fixed;
