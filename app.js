@@ -33,7 +33,7 @@ greyTint.addEventListener("click", function() {
 bookForm.addEventListener("submit", function(e) {
     hideBookForm()
     e.preventDefault()
-    createAndDisplayBooks()
+    createAndDisplayBook()
     updateStats()
     clearForm()
 })
@@ -76,9 +76,9 @@ function createBookObject(title, author, pages, read, dataId) {
     this.dataId = dataId
 }
 
-// Function to loop through array, create book cards and then display them on the page //
+// Function to create book cards and then display them on the page //
 
-function createAndDisplayBooks() {
+function createAndDisplayBook() {
 
     let book = new createBookObject(titleInput.value, authorInput.value, pagesInput.value, readInput.checked, Date.now())
 
@@ -86,9 +86,7 @@ function createAndDisplayBooks() {
 
     const bookCard = document.createElement("div")
     bookCard.classList.add("card")
-
     bookCard.setAttribute("data-id", Date.now())
-    
     
     const bookTitle = document.createElement("h3")
     bookTitle.textContent = '"' + book.title + '"'
@@ -167,18 +165,11 @@ function createAndDisplayBooks() {
 
 function updateStats() {
 
-    console.log(myLibrary)
-
-    totalBooks.textContent = myLibrary.length 
-
-
     function getBooksRead() {
         let totalBooksReadArray = myLibrary.filter(readBook => readBook.read === true)
         return totalBooksReadArray
     }
     
-    totalBooksRead.textContent = getBooksRead().length
-
     function getPages() {
 
         let total = 0;
@@ -201,7 +192,8 @@ function updateStats() {
         return total
     } 
 
+    totalBooks.textContent = myLibrary.length
+    totalBooksRead.textContent = getBooksRead().length
     totalPages.textContent = getPages()
-
     totalPagesRead.textContent = getPagesRead()
 }
